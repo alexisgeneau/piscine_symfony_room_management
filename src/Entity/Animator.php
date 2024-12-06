@@ -54,6 +54,11 @@ class Animator
         return $this;
     }
 
+    public function getFullname(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
     public function getPhone(): ?string
     {
         return $this->phone;
