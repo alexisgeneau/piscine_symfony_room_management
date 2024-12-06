@@ -23,7 +23,7 @@
                 <th>Images</th>
                 <td>
                 {% for image in room.images %}
-                    <img src="/assets/images/{{ image.path }}" width="40" alt="">
+                    <img src="{{ image.path }}" width="60" alt="">
                     {% endfor %}
                 </td>
             </tr>

@@ -30,7 +30,7 @@ final class RoomController extends AbstractController
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $images = $form->get('images')->getData();
 
@@ -42,7 +42,7 @@ final class RoomController extends AbstractController
                 );
 
                 $image = new Image();
-                $image->setPath($fileName);
+                $image->setPath($this->getParameter('uploads_base_url') . '/' . $fileName);
                 $image->setRoom($room);
 
                 $entityManager->persist($image);
