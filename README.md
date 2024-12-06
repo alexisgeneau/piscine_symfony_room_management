@@ -86,6 +86,6 @@ Ce projet est une application web pour gérer des salles, des établissements, d
 - **Champs :**
     - `id` : Identifiant unique.
     - `lastname` : Nom de l'animateur.
-    - `lastname` : Prénom de l'animateur.
+    - `firstname` : Prénom de l'animateur.
     - `phone` : Téléphone de l'animateur.
     - `email` : Email de l'animateur.
