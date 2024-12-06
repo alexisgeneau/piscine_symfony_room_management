@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Room;
 use App\Form\RoomType;
 use App\Repository\RoomRepository;
@@ -29,7 +30,24 @@ final class RoomController extends AbstractController
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+
+            $images = $form->get('images')->getData();
+
+            foreach ($images as $image) {
+                $fileName = md5(uniqid()) . '.' . $image->guessExtension();
+                $image->move(
+                    $this->getParameter('uploads_directory'),
+                    $fileName
+                );
+
+                $image = new Image();
+                $image->setPath($fileName);
+                $image->setRoom($room);
+
+                $entityManager->persist($image);
+            }
+
             $entityManager->persist($room);
             $entityManager->flush();
 

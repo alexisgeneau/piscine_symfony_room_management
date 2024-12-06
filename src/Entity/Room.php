@@ -29,6 +29,9 @@ class Room
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private Collection $tags;
 
+    #[ORM\OneToMany(mappedBy: 'room', targetEntity: Image::class)]
+    private Collection $images;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,5 +83,10 @@ class Room
         $this->tags = $tags;
 
         return $this;
+    }
+
+    public function getImages(): Collection
+    {
+        return $this->images;
     }
 }
