@@ -22,9 +22,6 @@ class RoomType extends AbstractType
             ->add('establishment', EntityType::class, [
                 'class' => Establishment::class,
                 'choice_label' => 'name',
-                'label' => 'Etablissement',
-                'attr' => ['class' => 'form-control'],
-                'label_attr' => ['class' => 'form-label'],
             ])
             ->add('name', TextType::class, [
                 'attr' => ['class' => 'form-control'],
@@ -41,7 +38,7 @@ class RoomType extends AbstractType
                 'multiple' => true,
                 'required' => false,
                 'label' => 'Images',
-                'attr' => ['class' => 'form-control'],
+                'attr' => ['class' => 'form-control', 'accept' => '.jpeg, .png, .jpg, .webp'],
                 'label_attr' => ['class' => 'form-label'],
             ])
             ->add('tags', EntityType::class, [

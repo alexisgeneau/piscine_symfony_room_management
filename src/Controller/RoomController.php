@@ -92,6 +92,10 @@ final class RoomController extends AbstractController
     public function delete(Request $request, Room $room, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$room->getId(), $request->getPayload()->getString('_token'))) {
+            foreach ($room->getImages() as $image) {
+                @unlink($this->getParameter('uploads_directory') . '/' . $image->getFilename());
+            }
+
             $entityManager->remove($room);
             $entityManager->flush();
 

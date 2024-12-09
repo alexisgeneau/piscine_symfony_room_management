@@ -23,6 +23,7 @@
                 <td>
                     <a href="{{ path('app_room_show', {'id': room.id}) }}" class="btn bg-info text-white mb-2 mt-2">show</a>
                     <a href="{{ path('app_room_edit', {'id': room.id}) }}" class="btn bg-warning text-white mb-2 mt-2">edit</a>
+                    {{ include('room/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

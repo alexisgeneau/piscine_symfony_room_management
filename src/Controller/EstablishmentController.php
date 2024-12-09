@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Establishment;
 use App\Form\EstablishmentType;
 use App\Repository\EstablishmentRepository;
+use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,9 +72,16 @@ final class EstablishmentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_establishment_delete', methods: ['POST'])]
-    public function delete(Request $request, Establishment $establishment, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Establishment $establishment, EntityManagerInterface $entityManager, ImageRepository $imageRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$establishment->getId(), $request->getPayload()->getString('_token'))) {
+
+            foreach ($establishment->getRooms() as $room) {
+                foreach ($room->getImages() as $image) {
+                    @unlink($this->getParameter('uploads_directory') . '/' . $image->getFilename());
+                }
+            }
+
             $entityManager->remove($establishment);
             $entityManager->flush();
 
